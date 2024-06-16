@@ -57,7 +57,9 @@ int main() {
     vector<vector<int>> ruiseki(N+1, vector<int>(N+1, 0));
     for(int i = 0;i < N;i++){
         for(int j = 0;j < N;j++){
-            ruiseki[i+1][j+1] = ruiseki[i+1][j] + ruiseki[i][j+1] - ruiseki[i][j]
+            ruiseki[i+1][j+1] += ruiseki[i+1][j] + ruiseki[i][j+1] - ruiseki[i][j];
+            if(i != 0) ruiseki[i+1][j+1] += map[i-1][j];
+            if(j != 0) ruiseki[i+1][j+1] += map[i][j-1];
         }
     }
 
