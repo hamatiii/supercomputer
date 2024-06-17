@@ -1,6 +1,8 @@
 #include <iostream>
 #include <fstream>
 #include <vector>
+#include <queue>
+#include <algorithm>
 
 using namespace std;
 
@@ -10,6 +12,7 @@ ofstream ofs("result.in", ios::app);
 
 int main() {
 
+    vector<pair<int,int>> G[40000];
     //入力
     int N;
     ifs >> N; // 一辺の頂点数を読み込む
@@ -53,14 +56,28 @@ int main() {
     return 0;
     */
 
-   //累積和
+   //累積和開始
     vector<vector<int>> ruiseki(N+1, vector<int>(N+1, 0));
     for(int i = 0;i < N;i++){
         for(int j = 0;j < N;j++){
             ruiseki[i+1][j+1] += ruiseki[i+1][j] + ruiseki[i][j+1] - ruiseki[i][j];
-            if(i != 0) ruiseki[i+1][j+1] += map[i-1][j];
-            if(j != 0) ruiseki[i+1][j+1] += map[i][j-1];
+            if(i+1 != 1) ruiseki[i+1][j+1] += map[2i-1][j];
+            if(j+1 != 1) ruiseki[i+1][j+1] += map[2i][j-1];
         }
     }
+    //累積和終了
+
+    //確認用
+    for(int i = 0;i < N;i++){
+        for(int j = 0;j < N;j++){
+            ofs << ruiseki[i+1][j+1] << " ";
+        }
+        ofs << endl;
+    }
+
+    //ダイクストラ開始
+    priority_queue<pair<int,int>, vector<pair<int,int>>, greater<pair<int,int>>> pri;
+
+    
 
 }
